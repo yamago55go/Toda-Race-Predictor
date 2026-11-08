@@ -1,4 +1,3 @@
-
 name: Toda Race Data
 
 on:
@@ -16,15 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch official race cards
-        run: python3 scripts/fetch_racelists.py
+      - name: Install PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Fetch Toda race PDF
+        run: python3 scripts/fetch_pdf.py
 
       - name: Save fetched data
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
+          git add -A data/
           if ! git diff --cached --quiet; then
-            git commit -m "Update Toda race cards"
+            git commit -m "Update Toda race PDF data"
             git push
           fi
