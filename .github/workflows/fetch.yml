@@ -1,0 +1,12 @@
+
+name: Toda Race Data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check setup
+        run: echo "Toda Race Predictor is ready"
