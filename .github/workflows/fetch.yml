@@ -3,10 +3,33 @@ name: Toda Race Data
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '35 11 * * *'
+
+permissions:
+  contents: write
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
-      - name: Check setup
-        run: echo "Toda Race Predictor is ready"
+      - uses: actions/checkout@v4
+
+      - name: Download tomorrow race cards
+        run: |
+          DATE=$(TZ=Asia/Tokyo date -d tomorrow +%Y/%m/%d)
+          URL="https://boatracecsv.github.io/data/programs/race_cards/$DATE.csv"
+          mkdir -p data
+          curl --fail --location --retry 2 \
+            "$URL" -o data/tomorrow.csv
+          test -s data/tomorrow.csv
+
+      - name: Save data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tomorrow.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Update tomorrow race data"
+            git push
+          fi
