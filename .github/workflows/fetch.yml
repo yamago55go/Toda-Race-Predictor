@@ -2,7 +2,12 @@
 name: Toda Race Data
 
 on:
-  workflow_dispatch:
+    workflow_dispatch:
+    inputs:
+      pdf_url:
+        description: '出走表PDFのURL'
+        required: false
+        type: string
   schedule:
     - cron: '35 11 * * *'
 
