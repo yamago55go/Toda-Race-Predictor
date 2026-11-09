@@ -25,7 +25,9 @@ jobs:
         run: python3 -m pip install beautifulsoup4 requests pdfplumber
 
       - name: Fetch Toda race PDF
-        run: python3 scripts/fetch_pdf.py
+        run:         env:
+          PDF_URL: ${{ inputs.pdf_url }}
+        run: python3 scripts/fetch_pdf.py --pdf-url "$PDF_URL"
 
       - name: Save fetched data
         if: always()
