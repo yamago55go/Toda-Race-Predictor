@@ -20,6 +20,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y poppler-utils
+                - name: Install Python libraries
+        run: python3 -m pip install beautifulsoup4 requests
 
       - name: Fetch Toda race PDF
         run: python3 scripts/fetch_pdf.py
