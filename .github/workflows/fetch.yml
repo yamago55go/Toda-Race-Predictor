@@ -1,8 +1,7 @@
-
 name: Toda Race Data
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
     inputs:
       pdf_url:
         description: '出走表PDFのURL'
@@ -30,7 +29,7 @@ jobs:
         run: python3 -m pip install beautifulsoup4 requests pdfplumber
 
       - name: Fetch Toda race PDF
-        run:         env:
+        env:
           PDF_URL: ${{ inputs.pdf_url }}
         run: python3 scripts/fetch_pdf.py --pdf-url "$PDF_URL"
 
