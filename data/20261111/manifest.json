@@ -1,0 +1,12 @@
+{
+  "date": "20261111",
+  "index": "https://www.boatrace-toda.jp/race/shusso_list.html",
+  "checked_at": "2026-11-10T23:02:41.072195+09:00",
+  "candidates": [],
+  "index_status": 200,
+  "selected_url": "https://todaboat-telprd.powercms.hosting/2026.11.07.pdf",
+  "pdf_status": 200,
+  "pages": 2,
+  "text_characters": 19261,
+  "status": "pdf_saved_text_extracted"
+}
